@@ -8,7 +8,7 @@ import {increment, decrement} from './actions/index';
 class Counter extends Component {
   addIncrement = () => {
     // console.log('tambah');
-    this.props.incremaddIncremententAction();
+    this.props.incrementAction();
   };
   minIncrement = () => {
     // console.log('kurang');
