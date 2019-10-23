@@ -3,11 +3,19 @@ import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 
 const ListItem = props => {
   return (
-    <TouchableOpacity>
-      <View style={styles.listItem}>
-        <Text>{props.placeName}</Text>
-      </View>
-    </TouchableOpacity>
+    <View>
+      <TouchableOpacity>
+        <View style={styles.listItem}>
+          <Text>{props.placeName}</Text>
+        </View>
+      </TouchableOpacity>
+
+      {/* <TouchableOpacity>
+        <View style={styles.listItem}>
+          <Text>{props.cityName}</Text>
+        </View>
+      </TouchableOpacity> */}
+    </View>
   );
 };
 

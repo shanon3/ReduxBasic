@@ -1,22 +1,22 @@
-import {ADD_PLACE} from '../actions/types';
+import {CITY} from '../actions/types';
 
 const initialState = {
   places: [], //tampung nilai berupa array
 };
 
-const placeReducer = (state = initialState, action) => {
+const cityReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_PLACE:
+    case CITY:
       return {
         places: state.places.concat({
           key: Math.random(),
-          valuePlace: action.payload,
-          // kota: action.city,
+          kota: action.city,
+          //nama: action.payload,
         }),
       };
     default:
       return state;
   }
-}
+};
 
-export default placeReducer;
+export default cityReducer;

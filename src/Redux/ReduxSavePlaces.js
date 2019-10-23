@@ -2,49 +2,84 @@ import React, {Component} from 'react';
 import {StyleSheet, View, TextInput, Button, FlatList} from 'react-native';
 import ListItem from './component/ListItem';
 import {connect} from 'react-redux';
-import {addPlace} from './actions';
+import {addPlace, addCity} from './actions';
 
 class ReduxSavePlaces extends Component {
   state = {
     placeName: '',
+    placeCity: '',
     places: [],
   };
   placeSubmitHandler = () => {
-    if (this.state.placeName.trim() === '') {
+    if (
+      this.state.placeName.trim() === '' &&
+      this.state.placeCity.trim() === ''
+    ) {
       return;
     }
+    console.log(this.state);
+    
     this.props.add(this.state.placeName);
+//    this.props.add(this.state.placeCity);
   };
 
-  placeNameChangeHandler = value => {
+  placeNameChangeHandler = name => {
     this.setState({
-      placeName: value,
+      placeName: name,
+    });
+  };
+
+  placeCityChangeHandler = city => {
+    this.setState({
+      placeCity: city,
     });
   };
 
   placesOutput = () => {
     return (
-      <FlatList
-        style={styles.listContainer}
-        data={this.props.places}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={info => <ListItem placeName={info.item.value} />}
-      />
+      <View>
+        {/* <View> */}
+        <FlatList
+          style={styles.listContainer}
+          data={this.props.dataCity}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={info => <ListItem placeName={info.item.kota} />} //kota dapet dari file cityReducers
+        />
+        {/* </View> */}
+
+        {/* <View> */}
+        {/* <FlatList
+          style={styles.listContainer}
+          data={this.props.dataPlaces}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={info => <ListItem placeName={info.item.valuePlace} />}
+        /> */}
+      </View>
+      // </View>
     );
   };
 
   render() {
     console.log('Data Props Reducer');
-    console.log(this.props);
+    console.log(this.props.dataPlaces);
+    console.log(this.props.dataCity);
     return (
       <View style={styles.container}>
         <View style={styles.inputContainer}>
           <TextInput
-            placeholder="Seach Places"
+            placeholder="Nama"
             style={styles.placeInput}
             value={this.state.placeName}
             onChangeText={this.placeNameChangeHandler}
           />
+
+          <TextInput
+            placeholder="Kota"
+            style={styles.placeInput}
+            value={this.state.placeCity}
+            onChangeText={this.placeCityChangeHandler}
+          />
+
           <Button
             title="Add"
             style={styles.placeButton}
@@ -64,8 +99,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   inputContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    // flexDirection: 'row',
+    justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
   },
@@ -81,16 +116,19 @@ const styles = StyleSheet.create({
 });
 
 //export default ReduxSaveData
-const mapStateToProps = state => {
+const mapStateToProps = data => {
   return {
-    places: state.places.places,
+    // places dapet dari array cityReducers, listCity dapet dari index.js dari folder reducers
+    dataPlaces: data.listPlaces.places,
+    dataCity: data.listCity.places,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    add: name => {
-      dispatch(addPlace(name)); //dispatch menghubungkan action ke reducers
+    add: (city, name) => {
+      dispatch(addCity(city)); //addCity dari index.js di folder action
+      dispatch(addPlace(name));
     },
   };
 };

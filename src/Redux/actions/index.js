@@ -1,4 +1,4 @@
-import {INCREMENT, DECREMENT, ADD_PLACE} from './types';
+import {INCREMENT, DECREMENT, ADD_PLACE, CITY} from './types';
 
 export function increment() {
   return {
@@ -14,5 +14,12 @@ export const addPlace = placeName => {
   return {
     type: ADD_PLACE,
     payload: placeName,
+  };
+};
+
+export const addCity = cityName => {
+  return {
+    type: CITY,
+    city: cityName,
   };
 };
