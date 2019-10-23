@@ -7,14 +7,9 @@ const ListItem = props => {
       <TouchableOpacity>
         <View style={styles.listItem}>
           <Text>{props.placeName}</Text>
-        </View>
-      </TouchableOpacity>
-
-      {/* <TouchableOpacity>
-        <View style={styles.listItem}>
           <Text>{props.cityName}</Text>
         </View>
-      </TouchableOpacity> */}
+      </TouchableOpacity>
     </View>
   );
 };

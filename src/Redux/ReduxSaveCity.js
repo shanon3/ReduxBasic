@@ -2,49 +2,49 @@ import React, {Component} from 'react';
 import {StyleSheet, View, TextInput, Button, FlatList} from 'react-native';
 import ListItem from './component/ListItem';
 import {connect} from 'react-redux';
-import {addPlace} from './actions';
+import {addCity} from './actions';
 
-class ReduxSavePlaces extends Component {
+class ReduxSaveCity extends Component {
   state = {
-    placeName: '',
+    placeCity: '',
   };
   placeSubmitHandler = () => {
-    if (this.state.placeName.trim() === '') {
+    if (this.state.placeCity.trim() === '') {
       return;
     }
-    console.log(this.state);
 
-    this.props.add(this.state.placeName);
+    this.props.add(this.state.placeCity);
   };
 
-  placeNameChangeHandler = name => {
+  placeCityChangeHandler = city => {
     this.setState({
-      placeName: name,
+      placeCity: city,
     });
   };
 
   placesOutput = () => {
     return (
-<FlatList
+      <FlatList
         style={styles.listContainer}
-        data={this.props.dataPlaces}
+        data={this.props.dataCity}
         keyExtractor={(item, index) => index.toString()}
-        renderItem={info => <ListItem placeName={info.item.valuePlace} />} //kota dapet dari file cityReducers
+        renderItem={info => <ListItem placeName={info.item.kota} />} //kota dapet dari file cityReducers
       />
     );
   };
 
   render() {
     console.log('Data Props Reducer');
-    console.log(this.props.dataPlaces);
+    console.log(this.props.dataCity);
+
     return (
       <View style={styles.container}>
         <View style={styles.inputContainer}>
           <TextInput
-            placeholder="Nama"
+            placeholder="Kota"
             style={styles.placeInput}
-            value={this.state.placeName}
-            onChangeText={this.placeNameChangeHandler}
+            value={this.state.placeCity}
+            onChangeText={this.placeCityChangeHandler}
           />
 
           <Button
@@ -86,15 +86,14 @@ const styles = StyleSheet.create({
 const mapStateToProps = data => {
   return {
     // places dapet dari array cityReducers, listCity dapet dari index.js dari folder reducers
-    dataPlaces: data.listPlaces.places,
+    dataCity: data.listCity.places,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    add: name => {
-      //addCity dari index.js di folder action
-      dispatch(addPlace(name));
+    add: city => {
+      dispatch(addCity(city)); //addCity dari index.js di folder action
     },
   };
 };
@@ -102,4 +101,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(ReduxSavePlaces);
+)(ReduxSaveCity);
